@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import MindfulAI from "./pages/MindfulAI";
 import MedKitAI from "./pages/MedKitAI";
 import NotFound from "./pages/NotFound";
+import Docs from "./pages/Docs";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Home />} />
           <Route path="/mindfulai" element={<MindfulAI />} />
           <Route path="/medkitai" element={<MedKitAI />} />
+          <Route path="/docs" element={<Docs />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

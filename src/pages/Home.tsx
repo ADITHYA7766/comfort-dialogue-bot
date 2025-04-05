@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { Heart, Users, FileText } from "lucide-react";
 
 const Home = () => {
   return (
@@ -32,6 +32,15 @@ const Home = () => {
             </svg>
             <h1 className="text-xl font-semibold tracking-tight">HealthCompanion</h1>
           </div>
+          
+          <div className="ml-auto flex items-center gap-4">
+            <Button variant="ghost" asChild size="sm">
+              <Link to="/docs" className="flex items-center gap-2">
+                <Users className="h-4 w-4" />
+                Our Doctors
+              </Link>
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -43,7 +52,7 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <Card className="border shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -99,6 +108,29 @@ const Home = () => {
               <Button asChild size="lg">
                 <Link to="/medkitai">
                   Access MedKitAI
+                </Link>
+              </Button>
+            </CardFooter>
+          </Card>
+
+          <Card className="border shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <FileText className="h-10 w-10 text-primary" />
+              </div>
+              <CardTitle className="text-2xl">Our Doctors</CardTitle>
+              <CardDescription>Healthcare professionals</CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <p className="text-muted-foreground">
+                Meet our team of experienced healthcare professionals who provide specialized care
+                and expert consultation for your health needs.
+              </p>
+            </CardContent>
+            <CardFooter className="flex justify-center">
+              <Button asChild size="lg">
+                <Link to="/docs">
+                  View Doctors
                 </Link>
               </Button>
             </CardFooter>
