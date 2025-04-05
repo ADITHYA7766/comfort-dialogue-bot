@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Heart, Medkit } from "lucide-react";
+import { Heart, Medical } from "lucide-react";
 
 const Home = () => {
   return (
@@ -70,7 +70,21 @@ const Home = () => {
           <Card className="border shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Medkit className="h-10 w-10 text-primary" />
+                <svg 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  className="h-10 w-10 text-primary"
+                >
+                  <path d="M8 7H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3" />
+                  <path d="M13 7V3a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v4" />
+                  <circle cx="9" cy="13" r="1" />
+                  <circle cx="15" cy="13" r="1" />
+                  <path d="M10 17h4" />
+                </svg>
               </div>
               <CardTitle className="text-2xl">MedKitAI</CardTitle>
               <CardDescription>Medical information assistant</CardDescription>
