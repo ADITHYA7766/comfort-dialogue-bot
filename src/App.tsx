@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import MindfulAI from "./pages/Index";
+import MindfulAI from "./pages/MindfulAI";
 import MedKitAI from "./pages/MedKitAI";
 import NotFound from "./pages/NotFound";
 
