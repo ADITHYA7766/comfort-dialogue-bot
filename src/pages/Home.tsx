@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Heart, Users, FileText } from "lucide-react";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Home = () => {
   return (
@@ -35,7 +34,6 @@ const Home = () => {
           </div>
           
           <div className="ml-auto flex items-center gap-4">
-            <ThemeToggle />
             <Button variant="ghost" asChild size="sm">
               <Link to="/docs" className="flex items-center gap-2">
                 <Users className="h-4 w-4" />

@@ -53,11 +53,6 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Add custom colors
-				"soft-ivory": "#EFE9E0",
-				"tropical-teal": "#0F9E99",
-				"paynes-grey": "#536878",
-				"pearl": "#EAE0C8",
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

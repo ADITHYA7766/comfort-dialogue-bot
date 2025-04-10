@@ -10,14 +10,13 @@ import MindfulAI from "./pages/MindfulAI";
 import MedKitAI from "./pages/MedKitAI";
 import NotFound from "./pages/NotFound";
 import Docs from "./pages/Docs";
-import { ThemeProvider } from "./components/ThemeProvider";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider defaultTheme="system" storageKey="health-companion-theme">
+    <React.StrictMode>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
@@ -34,7 +33,7 @@ const App: React.FC = () => {
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
-    </ThemeProvider>
+    </React.StrictMode>
   );
 };
 

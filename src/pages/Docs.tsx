@@ -4,7 +4,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Stethoscope, ArrowLeft } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 // Doctor data
 const doctors = [
@@ -61,15 +60,12 @@ const Docs = () => {
             <h1 className="text-xl font-semibold tracking-tight">HealthCompanion</h1>
           </div>
           
-          <div className="flex items-center gap-4">
-            <ThemeToggle />
-            <Button variant="outline" asChild size="sm">
-              <Link to="/" className="flex items-center gap-2">
-                <ArrowLeft className="h-4 w-4" />
-                Back to Home
-              </Link>
-            </Button>
-          </div>
+          <Button variant="outline" asChild size="sm">
+            <Link to="/" className="flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
         </div>
       </header>
 
