@@ -11,7 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { toast } from "@/hooks/use-toast";
-import { Mail, Lock, User } from "lucide-react";
+import { Mail, Lock, User, Home } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -69,7 +69,15 @@ const Signup: React.FC = () => {
       
       <main className="flex-1 flex items-center justify-center p-4">
         <div className="w-full max-w-md p-8 rounded-lg border border-border bg-card">
-          <h1 className="text-2xl font-bold mb-6 text-center text-foreground">Create an Account</h1>
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-2xl font-bold text-foreground">Create an Account</h1>
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/" className="flex items-center gap-2">
+                <Home className="h-4 w-4" />
+                Back to Home
+              </Link>
+            </Button>
+          </div>
           
           {error && (
             <Alert variant="destructive" className="mb-6">
