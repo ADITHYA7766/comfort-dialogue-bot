@@ -5,6 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Stethoscope, ArrowLeft } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { useState } from "react";
 
 // Doctor data
 const doctors = [
@@ -29,10 +39,126 @@ const doctors = [
     specialty: "Internal Medicine & Preventive Care",
     description: "Passionate about preventive medicine and holistic wellness. Helps patients develop personalized health plans based on lifestyle and genetic factors.",
     image: "/lovable-uploads/827e947a-155e-423c-822b-78fba6f0c593.png"
+  },
+  {
+    id: 4,
+    name: "Dr. Stephen Strange",
+    specialty: "Neurosurgery",
+    description: "World-renowned neurosurgeon specializing in complex brain and spinal cord surgeries. Pioneered several revolutionary surgical techniques for previously inoperable conditions.",
+    image: "/lovable-uploads/01434cbc-7462-485e-ba90-e3f6b95f40de.png"
+  },
+  {
+    id: 5,
+    name: "Dr. Bruce Banner",
+    specialty: "Radiation Oncology",
+    description: "Expert in radiation therapy for cancer treatment. Focuses on developing precise radiation protocols that maximize effectiveness while minimizing side effects.",
+    image: "/lovable-uploads/066fe07d-df8d-4416-a6f4-db185a0dcc7e.png"
+  },
+  {
+    id: 6,
+    name: "Dr. Carol Danvers",
+    specialty: "Aerospace Medicine",
+    description: "Specializes in the physiological effects of flight and space travel on the human body. Provides care for astronauts and pilots facing unique healthcare challenges.",
+    image: "/lovable-uploads/827e947a-155e-423c-822b-78fba6f0c593.png"
+  },
+  {
+    id: 7,
+    name: "Dr. T'Challa",
+    specialty: "Trauma Surgery",
+    description: "Leading trauma surgeon with expertise in emergency and critical care. Specializes in treating severe injuries and developing innovative recovery protocols.",
+    image: "/lovable-uploads/01434cbc-7462-485e-ba90-e3f6b95f40de.png"
+  },
+  {
+    id: 8,
+    name: "Dr. Wanda Maximoff",
+    specialty: "Pediatric Psychology",
+    description: "Dedicated child psychologist focusing on early development and trauma recovery. Uses innovative therapy methods to help children overcome psychological challenges.",
+    image: "/lovable-uploads/066fe07d-df8d-4416-a6f4-db185a0dcc7e.png"
+  },
+  {
+    id: 9,
+    name: "Dr. Sam Wilson",
+    specialty: "Rehabilitation Medicine",
+    description: "Rehabilitation specialist helping patients recover from injuries, surgeries, and chronic conditions. Develops comprehensive recovery plans focusing on regaining function and independence.",
+    image: "/lovable-uploads/827e947a-155e-423c-822b-78fba6f0c593.png"
+  },
+  {
+    id: 10,
+    name: "Dr. Peter Parker",
+    specialty: "Sports Medicine",
+    description: "Sports medicine physician specializing in treating athletic injuries and improving performance. Works with athletes at all levels to prevent injuries and optimize recovery.",
+    image: "/lovable-uploads/01434cbc-7462-485e-ba90-e3f6b95f40de.png"
+  },
+  {
+    id: 11,
+    name: "Dr. Maria Hill",
+    specialty: "Emergency Medicine",
+    description: "Emergency medicine specialist with extensive experience in critical care situations. Known for making quick, accurate diagnoses and providing life-saving interventions.",
+    image: "/lovable-uploads/066fe07d-df8d-4416-a6f4-db185a0dcc7e.png"
+  },
+  {
+    id: 12,
+    name: "Dr. Scott Lang",
+    specialty: "Infectious Disease",
+    description: "Infectious disease specialist focused on diagnosing and treating complex or rare infections. Develops protocols for preventing the spread of communicable diseases.",
+    image: "/lovable-uploads/827e947a-155e-423c-822b-78fba6f0c593.png"
+  },
+  {
+    id: 13,
+    name: "Dr. James Rhodes",
+    specialty: "Orthopedic Surgery",
+    description: "Orthopedic surgeon specializing in joint replacement surgeries and sports-related injuries. Utilizes the latest minimally invasive techniques for faster patient recovery.",
+    image: "/lovable-uploads/01434cbc-7462-485e-ba90-e3f6b95f40de.png"
+  },
+  {
+    id: 14,
+    name: "Dr. Hope Van Dyne",
+    specialty: "Immunology",
+    description: "Immunologist researching and treating autoimmune disorders and immunodeficiencies. Combines clinical practice with cutting-edge research to develop new treatment approaches.",
+    image: "/lovable-uploads/066fe07d-df8d-4416-a6f4-db185a0dcc7e.png"
+  },
+  {
+    id: 15,
+    name: "Dr. Nick Fury",
+    specialty: "Ophthalmology",
+    description: "Leading ophthalmologist specializing in surgical and non-surgical treatments for complex eye conditions. Pioneered several novel techniques for retinal repair.",
+    image: "/lovable-uploads/827e947a-155e-423c-822b-78fba6f0c593.png"
+  },
+  {
+    id: 16,
+    name: "Dr. Clint Barton",
+    specialty: "Audiology",
+    description: "Audiologist specializing in diagnosing and treating hearing disorders. Provides innovative hearing solutions and rehabilitation techniques for patients of all ages.",
+    image: "/lovable-uploads/01434cbc-7462-485e-ba90-e3f6b95f40de.png"
+  },
+  {
+    id: 17,
+    name: "Dr. Pepper Potts",
+    specialty: "Endocrinology",
+    description: "Endocrinologist focusing on hormonal disorders and metabolic conditions. Helps patients manage complex conditions like diabetes, thyroid disorders, and hormonal imbalances.",
+    image: "/lovable-uploads/066fe07d-df8d-4416-a6f4-db185a0dcc7e.png"
+  },
+  {
+    id: 18,
+    name: "Dr. Thor Odinson",
+    specialty: "Physical Therapy",
+    description: "Physical therapist specializing in strength recovery and rehabilitation. Develops personalized exercise regimens to help patients regain mobility and function after injuries.",
+    image: "/lovable-uploads/827e947a-155e-423c-822b-78fba6f0c593.png"
   }
 ];
 
 const Docs = () => {
+  const doctorsPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  // Calculate total pages
+  const totalPages = Math.ceil(doctors.length / doctorsPerPage);
+  
+  // Get current doctors
+  const indexOfLastDoctor = currentPage * doctorsPerPage;
+  const indexOfFirstDoctor = indexOfLastDoctor - doctorsPerPage;
+  const currentDoctors = doctors.slice(indexOfFirstDoctor, indexOfLastDoctor);
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <header className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -85,7 +211,7 @@ const Docs = () => {
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-          {doctors.map((doctor) => (
+          {currentDoctors.map((doctor) => (
             <Card key={doctor.id} className="flex flex-col border shadow-sm hover:shadow-md transition-shadow">
               <CardHeader className="text-center pb-0">
                 <div className="mx-auto mb-4 relative">
@@ -115,6 +241,77 @@ const Docs = () => {
             </Card>
           ))}
         </div>
+
+        {totalPages > 1 && (
+          <Pagination className="mt-12">
+            <PaginationContent>
+              {currentPage > 1 && (
+                <PaginationItem>
+                  <PaginationPrevious 
+                    href="#" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentPage(prev => Math.max(1, prev - 1));
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }} 
+                  />
+                </PaginationItem>
+              )}
+              
+              {[...Array(totalPages)].map((_, i) => {
+                // Show first page, current page, last page, and one page before and after current
+                if (
+                  i === 0 || // First page
+                  i === totalPages - 1 || // Last page
+                  (i + 1) === currentPage || // Current page
+                  (i + 1) === currentPage - 1 || // One before current
+                  (i + 1) === currentPage + 1 // One after current
+                ) {
+                  return (
+                    <PaginationItem key={i}>
+                      <PaginationLink 
+                        href="#" 
+                        isActive={currentPage === i + 1}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setCurrentPage(i + 1);
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                      >
+                        {i + 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  );
+                }
+                
+                // Add ellipsis after first page if there's a gap
+                if (i === 1 && currentPage > 3) {
+                  return <PaginationItem key="ellipsis-start"><PaginationEllipsis /></PaginationItem>;
+                }
+                
+                // Add ellipsis before last page if there's a gap
+                if (i === totalPages - 2 && currentPage < totalPages - 2) {
+                  return <PaginationItem key="ellipsis-end"><PaginationEllipsis /></PaginationItem>;
+                }
+                
+                return null;
+              })}
+              
+              {currentPage < totalPages && (
+                <PaginationItem>
+                  <PaginationNext 
+                    href="#" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentPage(prev => Math.min(totalPages, prev + 1));
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }} 
+                  />
+                </PaginationItem>
+              )}
+            </PaginationContent>
+          </Pagination>
+        )}
       </main>
 
       <footer className="border-t border-border/40 bg-muted/50 py-6">
