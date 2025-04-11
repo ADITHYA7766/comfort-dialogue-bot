@@ -17,8 +17,8 @@ const MindfulAI = () => {
   const handleStartChat = () => {
     setActiveTab("chat");
     toast({
-      title: "Welcome to Python-powered MindfulAI",
-      description: "I'm here to listen and support you using our advanced Python response system. What's on your mind today?",
+      title: "Welcome to MindfulAI",
+      description: "I'm here to listen and support you. What's on your mind today?",
       duration: 5000,
     });
   };
@@ -48,7 +48,7 @@ const MindfulAI = () => {
                 fill="currentColor" 
               />
             </svg>
-            <h1 className="text-xl font-semibold tracking-tight">MindfulAI <span className="text-xs text-primary">(Python)</span></h1>
+            <h1 className="text-xl font-semibold tracking-tight">MindfulAI</h1>
           </div>
           <Button variant="outline" size="sm" asChild>
             <Link to="/">
@@ -84,7 +84,7 @@ const MindfulAI = () => {
 
       <footer className="border-t border-border/40 bg-muted/50 py-6">
         <div className="container text-center text-sm text-muted-foreground">
-          <p>MindfulAI is powered by Python and is not a replacement for professional mental health services.</p>
+          <p>MindfulAI is not a replacement for professional mental health services.</p>
           <p className="mt-1">If you're experiencing a crisis, please call your local emergency services or a crisis hotline immediately.</p>
         </div>
       </footer>
