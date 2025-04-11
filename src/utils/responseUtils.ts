@@ -4,8 +4,12 @@ import { getPythonResponse } from '../api/responsePythonApi';
 
 export const getResponse = async (userInput: string): Promise<string> => {
   try {
+    console.log("Getting response for input:", userInput);
+    
     // Call the Python implementation
     const response = await getPythonResponse(userInput);
+    console.log("Received response:", response);
+    
     return response;
   } catch (error) {
     console.error('Error getting response:', error);

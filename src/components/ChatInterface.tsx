@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card } from "@/components/ui/card";
 import { getResponse } from "@/utils/responseUtils";
 import { Message } from "@/types/chat";
+import { useToast } from "@/hooks/use-toast";
 
 const ChatInterface = () => {
   const [messages, setMessages] = useState<Message[]>([
@@ -20,6 +21,7 @@ const ChatInterface = () => {
   const [isTyping, setIsTyping] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
 
   // Auto-focus input on component mount
   useEffect(() => {
@@ -48,23 +50,39 @@ const ChatInterface = () => {
     };
     
     setMessages((prev) => [...prev, userMessage]);
+    const userInput = input;
     setInput("");
     setIsTyping(true);
     
-    // Simulate AI thinking and typing
-    setTimeout(async () => {
-      const response = await getResponse(input);
-      
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: response,
-        sender: "ai",
-        timestamp: new Date().toISOString(),
-      };
-      
-      setMessages((prev) => [...prev, aiMessage]);
+    try {
+      // Simulate AI thinking and typing
+      setTimeout(async () => {
+        try {
+          const response = await getResponse(userInput);
+          
+          const aiMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            content: response,
+            sender: "ai",
+            timestamp: new Date().toISOString(),
+          };
+          
+          setMessages((prev) => [...prev, aiMessage]);
+        } catch (error) {
+          console.error("Error getting response:", error);
+          toast({
+            title: "Error",
+            description: "There was a problem getting a response. Please try again.",
+            variant: "destructive",
+          });
+        } finally {
+          setIsTyping(false);
+        }
+      }, 1500);
+    } catch (error) {
+      console.error("Error in handle send message:", error);
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -81,8 +99,8 @@ const ChatInterface = () => {
               <div
                 className={
                   message.sender === "user"
-                    ? "chat-bubble-user"
-                    : "chat-bubble-ai"
+                    ? "bg-primary text-primary-foreground rounded-xl p-3 max-w-[80%]"
+                    : "bg-muted rounded-xl p-3 max-w-[80%]"
                 }
               >
                 {message.content}
@@ -91,7 +109,7 @@ const ChatInterface = () => {
           ))}
           {isTyping && (
             <div className="flex justify-start">
-              <div className="chat-bubble-ai flex space-x-1">
+              <div className="bg-muted rounded-xl p-3 flex space-x-1">
                 <span className="animate-bounce">•</span>
                 <span className="animate-bounce" style={{ animationDelay: "0.2s" }}>•</span>
                 <span className="animate-bounce" style={{ animationDelay: "0.4s" }}>•</span>
