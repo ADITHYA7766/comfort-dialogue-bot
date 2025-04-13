@@ -27,14 +27,14 @@ const SpecialtyFilter = ({ doctors, onChange, value }: SpecialtyFilterProps) => 
       </div>
       
       <Select 
-        value={value || ""} 
-        onValueChange={(value) => onChange(value === "" ? undefined : value)}
+        value={value || "all"} 
+        onValueChange={(value) => onChange(value === "all" ? undefined : value)}
       >
         <SelectTrigger className="w-full sm:w-[250px]">
           <SelectValue placeholder="All specialties" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="">All specialties</SelectItem>
+          <SelectItem value="all">All specialties</SelectItem>
           {specialties.map((specialty) => (
             <SelectItem key={specialty} value={specialty}>
               {specialty}

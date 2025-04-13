@@ -53,7 +53,7 @@ const Docs = () => {
           <SpecialtyFilter 
             doctors={doctors} 
             onChange={handleSpecialtyChange} 
-            value={selectedSpecialty} 
+            value={selectedSpecialty ? selectedSpecialty : "all"} 
           />
         </div>
 
