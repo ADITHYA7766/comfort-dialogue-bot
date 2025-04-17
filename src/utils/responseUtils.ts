@@ -22,7 +22,7 @@ const responseCategories: ResponseCategory[] = [
     ]
   },
   {
-    keywords: ["lonely", "alone", "isolated", "no friends", "no one understands", "I am feeling lonely", "I am feeling alone", "I am feeling isolated"],
+    keywords: ["lonely", "alone", "isolated", "no friends", "no one understands", "I am feeling lonely", "I am feeling alone", "I am feeling isolated","I have no friends"],
     responses: [
       "Feeling lonely can be really difficult. Even in a crowded room, we can feel isolated when we don't feel understood. Would you like to explore ways to connect more deeply with others or find communities where you might feel more belonging?",
       "I hear that you're feeling alone right now. Many people experience loneliness at different points in their lives. What kinds of connections or relationships would feel meaningful to you?",
@@ -70,7 +70,7 @@ const responseCategories: ResponseCategory[] = [
     ]
   },
   {
-    keywords: ["relationship", "partner", "spouse", "boyfriend", "girlfriend", "marriage", "I am feeling relationship problems"],
+    keywords: ["relationship", "partner", "spouse", "boyfriend", "girlfriend", "marriage", "I am feeling relationship problems],
     responses: [
       "Relationships can bring both joy and challenges. Open, honest communication is often key to working through difficulties. Have you been able to express your feelings to the other person involved?",
       "Sometimes in relationships, we can fall into patterns that aren't serving us well. Reflecting on these patterns can be a first step toward change. What kinds of patterns have you noticed in this relationship?",
