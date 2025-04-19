@@ -2,6 +2,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useToast } from "@/hooks/use-toast";
 
 export interface Doctor {
   id: number;
@@ -17,6 +18,16 @@ interface DoctorCardProps {
 }
 
 const DoctorCard = ({ doctor }: DoctorCardProps) => {
+  const { toast } = useToast();
+
+  const handleScheduleConsultation = () => {
+    toast({
+      title: `Consultation with Dr. ${doctor.name}`,
+      description: "Your consultation request has been received. We'll contact you shortly to confirm the appointment.",
+      duration: 5000,
+    });
+  };
+  
   return (
     <Card key={doctor.id} className="flex flex-col border shadow-sm hover:shadow-md transition-shadow">
       <CardHeader className="text-center pb-0">
@@ -42,7 +53,7 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
         </p>
       </CardContent>
       <CardFooter className="flex justify-center pt-0 pb-6">
-        <Button variant="outline">Schedule Consultation</Button>
+        <Button variant="outline" onClick={handleScheduleConsultation}>Schedule Consultation</Button>
       </CardFooter>
     </Card>
   );
