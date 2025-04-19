@@ -1,4 +1,3 @@
-
 /**
  * Get a response from the MedKitAI based on the user's query
  */
@@ -26,14 +25,21 @@ export const getMedicalResponse = async (query: string): Promise<string> => {
     "cervical cancer", "kidney cancer", "thyroid cancer"
   ];
   
+  // More explicit cancer type detection
   for (const cancerType of cancerTypes) {
     if (queryLower.includes(cancerType)) {
+      console.log(`Detected cancer type: ${cancerType}`);
       // Store the cancer type for follow-up questions about stages
       sessionStorage.setItem('lastCancerType', cancerType);
       
       return getCancerInformation(cancerType) + 
         "\n\nWhich stage of " + cancerType + " would you like to know more about? (Please respond with a stage number 1-4)";
     }
+  }
+  
+  // Check for just the word "cancer"
+  if (queryLower.includes("cancer")) {
+    return "Cancer is a group of diseases involving abnormal cell growth with the potential to invade or spread to other parts of the body. There are many types of cancer, including lung, breast, prostate, colorectal, skin, melanoma, leukemia, lymphoma, pancreatic, ovarian, brain, liver, stomach, cervical, kidney, and thyroid cancer. Which specific type of cancer would you like to learn about?";
   }
   
   // Basic medical knowledge responses
@@ -134,6 +140,8 @@ const getCancerInformation = (cancerType: string): string => {
  * Get information about a specific stage of cancer
  */
 const getCancerStageInformation = (cancerType: string, stage: string): string => {
+  console.log(`Getting information for ${cancerType} stage ${stage}`);
+  
   const stageMap: {[key: string]: {[key: string]: string}} = {
     "lung cancer": {
       "1": "Stage 1 lung cancer is localized to the lung and has not spread to any lymph nodes. The tumor is generally small (less than 3 centimeters). The 5-year survival rate is around 60-80%. Treatment typically involves surgery to remove the affected portion of the lung. Radiation therapy might be used if surgery isn't an option.",
@@ -191,4 +199,3 @@ const getCancerStageInformation = (cancerType: string, stage: string): string =>
   
   return stageMap[cancerType][stage];
 };
-

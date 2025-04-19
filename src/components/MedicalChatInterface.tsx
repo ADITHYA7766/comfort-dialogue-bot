@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card } from "@/components/ui/card";
 import { getMedicalResponse } from "@/utils/medicalResponseUtils";
 import { Message } from "@/types/chat";
+import { useToast } from "@/components/ui/use-toast";
 
 const MedicalChatInterface = () => {
   const [messages, setMessages] = useState<Message[]>([
@@ -20,6 +21,7 @@ const MedicalChatInterface = () => {
   const [isTyping, setIsTyping] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
 
   // Clear sessionStorage when component unmounts
   useEffect(() => {
@@ -58,20 +60,34 @@ const MedicalChatInterface = () => {
     setInput("");
     setIsTyping(true);
     
-    // Simulate AI thinking and typing
-    setTimeout(async () => {
-      const response = await getMedicalResponse(input);
+    try {
+      // Store the input for debugging purposes
+      console.log("User input:", input);
       
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: response,
-        sender: "ai",
-        timestamp: new Date().toISOString(),
-      };
-      
-      setMessages((prev) => [...prev, aiMessage]);
+      // Simulate AI thinking and typing
+      setTimeout(async () => {
+        const response = await getMedicalResponse(input);
+        console.log("AI response:", response);
+        
+        const aiMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          content: response,
+          sender: "ai",
+          timestamp: new Date().toISOString(),
+        };
+        
+        setMessages((prev) => [...prev, aiMessage]);
+        setIsTyping(false);
+      }, 1500);
+    } catch (error) {
+      console.error("Error getting response:", error);
+      toast({
+        title: "Error",
+        description: "There was a problem getting a response. Please try again.",
+        variant: "destructive",
+      });
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   return (
