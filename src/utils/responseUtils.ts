@@ -9,11 +9,11 @@ interface ResponseCategory {
 const responseCategories: ResponseCategory[] = [
   {
     keywords: ["anxious", "anxiety", "worried", "nervous", "stress", "stressed", "I am feeling anxious", "I am feeling anxiety", "I am feeling worried", "I am feeling nervous", "I am feeling stress", "I am feeling stressed"],
-    responses: [`Hey, I just want you to know — I see you're going through a tough time right now. Anxiety can feel so heavy and overwhelming, and it's okay to feel the way you do. You're not alone, and you don't have to carry it all by yourself. I'm here for you, and I believe in your strength, even on the days when you feel weak.
+    responses: [`Hey, I just want you to know — I see you're going through a tough time right now. Anxiety can feel so heavy and overwhelming, and it's okay to feel the way you do. You're not alone, and you don't have to carry it all by yourself. I'm here for you, and I believe in your strength, even on the days when you feel weak.\n
+\n
+Sometimes the mind races, the heart feels restless, and stress builds up — but there are gentle ways to ease the pressure and calm the storm. Here are a few simple things you can try when anxiety starts to take over:\n
 
-Sometimes the mind races, the heart feels restless, and stress builds up — but there are gentle ways to ease the pressure and calm the storm. Here are a few simple things you can try when anxiety starts to take over:
-
-✅ Breathe Deeply and Slowly
+✅ Breathe Deeply and Slowly\n
 
 Focus on your breathing: inhale for 4 seconds, hold for 4, exhale for 6.
 
