@@ -21,6 +21,13 @@ const MedicalChatInterface = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Clear sessionStorage when component unmounts
+  useEffect(() => {
+    return () => {
+      sessionStorage.removeItem('lastCancerType');
+    };
+  }, []);
+  
   // Auto-focus input on component mount
   useEffect(() => {
     if (inputRef.current) {
