@@ -9,8 +9,58 @@ interface ResponseCategory {
 const responseCategories: ResponseCategory[] = [
   {
     keywords: ["anxious", "anxiety", "worried", "nervous", "stress", "stressed", "I am feeling anxious", "I am feeling anxiety", "I am feeling worried", "I am feeling nervous", "I am feeling stress", "I am feeling stressed"],
-    responses: ["Hey, I just want you to know — I see you're going through a tough time right now. Anxiety can feel so heavy and overwhelming, and it's okay to feel the way you do. You're not alone, and you don't have to carry it all by yourself. I'm here for you, and I believe in your strength, even on the days when you feel weak.\n\nSometimes the mind races, the heart feels restless, and stress builds up — but there are gentle ways to ease the pressure and calm the storm. Here are a few simple things you can try when anxiety starts to take over:\n\n✅ Breathe Deeply and Slowly\n\nFocus on your breathing: inhale for 4 seconds, hold for 4, exhale for 6.\n\nDeep, slow breaths signal your body that you are safe and help calm the nervous system.\n\n✅ Ground Yourself (The 5-4-3-2-1 Method)\n\nLook around and name:\n\n5 things you can see,\n\n4 things you can touch,\n\n3 things you can hear,\n\n2 things you can smell,\n\n1 thing you can taste.\n\nThis brings your mind back to the present moment and away from anxious thoughts.\n\n✅ Positive Self-Talk\n\nSpeak to yourself like you would to a friend. Replace thoughts like \"I can't handle this\" with \"I'm doing my best, and this feeling will pass.\"\n\n✅ Physical Movement\n\nA short walk, stretching, light exercise, or even dancing can release tension from the body and improve your mood.\n\n✅ Limit Stimulants\n\nReduce caffeine, sugar, and energy drinks when you're feeling anxious — these can spike your nervous system.\n\n✅ Create a Relaxation Routine\n\nListen to calming music or nature sounds.\n\nPractice mindfulness or meditation (there are great apps for beginners).\n\nTake warm showers or baths to relax your body.\n\n✅ Talk to Someone You Trust\n\nDon't keep everything bottled up. Sharing your worries can ease the weight, and sometimes just saying things out loud can help.\n\n💛 Most of all — be kind to yourself.\nIt's okay to have hard days. Anxiety does not define you, and you don't have to face it alone. One small step at a time is more than enough. I'm proud of you for fighting through it, even when it feels invisible to the world."]
-    
+    responses: [`Hey, I just want you to know — I see you're going through a tough time right now. Anxiety can feel so heavy and overwhelming, and it's okay to feel the way you do. You're not alone, and you don't have to carry it all by yourself. I'm here for you, and I believe in your strength, even on the days when you feel weak.
+
+Sometimes the mind races, the heart feels restless, and stress builds up — but there are gentle ways to ease the pressure and calm the storm. Here are a few simple things you can try when anxiety starts to take over:
+
+✅ Breathe Deeply and Slowly
+
+Focus on your breathing: inhale for 4 seconds, hold for 4, exhale for 6.
+
+Deep, slow breaths signal your body that you are safe and help calm the nervous system.
+
+✅ Ground Yourself (The 5-4-3-2-1 Method)
+
+Look around and name:
+
+5 things you can see,
+
+4 things you can touch,
+
+3 things you can hear,
+
+2 things you can smell,
+
+1 thing you can taste.
+
+This brings your mind back to the present moment and away from anxious thoughts.
+
+✅ Positive Self-Talk
+
+Speak to yourself like you would to a friend. Replace thoughts like "I can't handle this" with "I'm doing my best, and this feeling will pass."
+
+✅ Physical Movement
+
+A short walk, stretching, light exercise, or even dancing can release tension from the body and improve your mood.
+
+✅ Limit Stimulants
+
+Reduce caffeine, sugar, and energy drinks when you're feeling anxious — these can spike your nervous system.
+
+✅ Create a Relaxation Routine
+
+Listen to calming music or nature sounds.
+
+Practice mindfulness or meditation (there are great apps for beginners).
+
+Take warm showers or baths to relax your body.
+
+✅ Talk to Someone You Trust
+
+Don't keep everything bottled up. Sharing your worries can ease the weight, and sometimes just saying things out loud can help.
+
+💛 Most of all — be kind to yourself.
+It's okay to have hard days. Anxiety does not define you, and you don't have to face it alone. One small step at a time is more than enough. I'm proud of you for fighting through it, even when it feels invisible to the world.`]
   },
   {
     keywords: ["sad", "depressed", "depression", "unhappy", "miserable", "hopeless", "I am feeling sad", "I am feeling depressed", "I am feeling depression", "I am feeling unhappy", "I am feeling miserable", "I am feeling hopeless"],
