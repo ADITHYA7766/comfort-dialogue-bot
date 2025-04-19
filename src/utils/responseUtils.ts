@@ -15,7 +15,7 @@ Sometimes the mind races, the heart feels restless, and stress builds up — but
 
 ✅ Breathe Deeply and Slowly\n
 
-Focus on your breathing: inhale for 4 seconds, hold for 4, exhale for 6.
+Focus on your breathing: inhale for 4 seconds, hold for 4, exhale for 6.\n
 
 Deep, slow breaths signal your body that you are safe and help calm the nervous system.
 
