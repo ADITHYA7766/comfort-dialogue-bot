@@ -59,29 +59,6 @@ const Home = () => {
           <Card className="border shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="h-10 w-10 text-primary" />
-              </div>
-              <CardTitle className="text-2xl">MindfulAI</CardTitle>
-              <CardDescription>Mental health support companion</CardDescription>
-            </CardHeader>
-            <CardContent className="text-center">
-              <p className="text-muted-foreground">
-                A supportive AI companion for mental health assistance and emotional wellbeing.
-                Express your thoughts and receive compassionate guidance.
-              </p>
-            </CardContent>
-            <CardFooter className="flex justify-center">
-              <Button asChild size="lg">
-                <Link to="/mindfulai">
-                  Access MindfulAI
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
-
-          <Card className="border shadow-sm hover:shadow-md transition-shadow">
-            <CardHeader className="text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg 
                   viewBox="0 0 24 24" 
                   fill="none" 
@@ -111,6 +88,29 @@ const Home = () => {
               <Button asChild size="lg">
                 <Link to="/medkitai">
                   Access MedKitAI
+                </Link>
+              </Button>
+            </CardFooter>
+          </Card>
+
+          <Card className="border shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Heart className="h-10 w-10 text-primary" />
+              </div>
+              <CardTitle className="text-2xl">MindfulAI</CardTitle>
+              <CardDescription>Mental health support companion</CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <p className="text-muted-foreground">
+                A supportive AI companion for mental health assistance and emotional wellbeing.
+                Express your thoughts and receive compassionate guidance.
+              </p>
+            </CardContent>
+            <CardFooter className="flex justify-center">
+              <Button asChild size="lg">
+                <Link to="/mindfulai">
+                  Access MindfulAI
                 </Link>
               </Button>
             </CardFooter>
