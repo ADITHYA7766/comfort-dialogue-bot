@@ -1,10 +1,7 @@
 /**
- * Get a response from the MedKitAI based on the user's query
+ * Get a response from the HealthAI based on the user's query
  */
 export const getMedicalResponse = async (query: string): Promise<string> => {
-  // This is a simplified implementation. In a real application, this might
-  // call an API or use a more sophisticated mechanism to generate responses.
-  
   const queryLower = query.toLowerCase();
   
   // Check if this is a response to a cancer stage inquiry
@@ -17,7 +14,212 @@ export const getMedicalResponse = async (query: string): Promise<string> => {
     }
   }
   
-  // Check for cancer types
+  // Health problems database
+  const healthProblems: {[key: string]: {keywords: string[], info: string, advice: string, treatment: string}} = {
+    // 1. Infectious Diseases
+    "common_cold": {
+      keywords: ["common cold", "cold", "runny nose", "sniffles"],
+      info: "The common cold is a viral infection of the upper respiratory tract, primarily affecting the nose and throat.",
+      advice: "Wash hands frequently, avoid close contact with sick people, get adequate sleep, eat nutritious foods, and stay hydrated.",
+      treatment: "Rest, drink plenty of fluids, use saline nasal drops, take over-the-counter pain relievers if needed, and use a humidifier."
+    },
+    "flu": {
+      keywords: ["flu", "influenza", "body aches", "fever and chills"],
+      info: "Influenza is a viral infection that attacks the respiratory system, causing fever, body aches, and fatigue.",
+      advice: "Get annual flu vaccination, practice good hygiene, avoid crowded places during flu season.",
+      treatment: "Rest, fluids, antiviral medications if prescribed early, fever reducers, and supportive care."
+    },
+    "covid19": {
+      keywords: ["covid", "covid-19", "coronavirus", "loss of taste", "loss of smell"],
+      info: "COVID-19 is a respiratory illness caused by the SARS-CoV-2 virus, with symptoms ranging from mild to severe.",
+      advice: "Get vaccinated, wear masks in crowded areas, maintain social distancing, practice good hand hygiene.",
+      treatment: "Isolation, rest, fluids, monitor oxygen levels, seek medical care if symptoms worsen."
+    },
+    "dengue": {
+      keywords: ["dengue", "dengue fever", "mosquito fever"],
+      info: "Dengue is a mosquito-borne viral infection causing high fever, headache, and muscle pain.",
+      advice: "Eliminate standing water, use mosquito repellent, wear long sleeves in endemic areas.",
+      treatment: "Rest, fluids, paracetamol for fever (avoid aspirin), monitor for complications, seek immediate medical care for severe symptoms."
+    },
+    "malaria": {
+      keywords: ["malaria", "chills and fever", "sweats"],
+      info: "Malaria is a life-threatening disease caused by parasites transmitted through infected mosquito bites.",
+      advice: "Use insecticide-treated bed nets, take antimalarial medication when traveling to endemic areas, use repellent.",
+      treatment: "Antimalarial medications as prescribed, supportive care, hospitalization for severe cases."
+    },
+    "tuberculosis": {
+      keywords: ["tuberculosis", "tb", "persistent cough", "night sweats"],
+      info: "Tuberculosis is a bacterial infection that primarily affects the lungs but can spread to other organs.",
+      advice: "Avoid close contact with TB patients, ensure good ventilation, get tested if exposed, maintain good nutrition.",
+      treatment: "Long-term antibiotic therapy (6-9 months), directly observed treatment, isolation during infectious period."
+    },
+    "hepatitis": {
+      keywords: ["hepatitis", "liver infection", "jaundice", "yellow eyes"],
+      info: "Hepatitis is inflammation of the liver, commonly caused by viral infections (A, B, C).",
+      advice: "Get vaccinated (for A and B), practice safe sex, avoid sharing needles, practice good hygiene.",
+      treatment: "Rest, avoid alcohol, antiviral medications for chronic cases, supportive care, regular monitoring."
+    },
+    "hiv": {
+      keywords: ["hiv", "aids", "immune deficiency"],
+      info: "HIV attacks the immune system, potentially leading to AIDS if untreated.",
+      advice: "Practice safe sex, avoid sharing needles, get tested regularly, take PrEP if at high risk.",
+      treatment: "Antiretroviral therapy (ART), regular monitoring, opportunistic infection prevention."
+    },
+    "typhoid": {
+      keywords: ["typhoid", "typhoid fever", "prolonged fever"],
+      info: "Typhoid is a bacterial infection caused by Salmonella typhi, spread through contaminated food and water.",
+      advice: "Drink safe water, eat well-cooked food, practice good hygiene, get vaccinated if traveling.",
+      treatment: "Antibiotics as prescribed, fluids, rest, hospitalization for severe cases."
+    },
+    "chickenpox": {
+      keywords: ["chickenpox", "varicella", "itchy rash", "blisters"],
+      info: "Chickenpox is a highly contagious viral infection causing an itchy rash with fluid-filled blisters.",
+      advice: "Get vaccinated, avoid contact with infected individuals, maintain good hygiene.",
+      treatment: "Rest, calamine lotion for itching, antiviral medication if prescribed, avoid scratching."
+    },
+
+    // 2. Cardiovascular Problems
+    "hypertension": {
+      keywords: ["high blood pressure", "hypertension", "bp", "blood pressure"],
+      info: "High blood pressure is a condition where blood pressure in arteries is persistently elevated.",
+      advice: "Maintain healthy weight, exercise regularly, limit sodium intake, manage stress, avoid smoking.",
+      treatment: "Lifestyle changes, blood pressure medications, regular monitoring, dietary modifications."
+    },
+    "heart_attack": {
+      keywords: ["heart attack", "chest pain", "myocardial infarction", "heart pain"],
+      info: "A heart attack occurs when blood flow to part of the heart is blocked, damaging heart muscle.",
+      advice: "Know warning signs, maintain heart-healthy lifestyle, control risk factors like diabetes and cholesterol.",
+      treatment: "Emergency medical care, medications to restore blood flow, cardiac rehabilitation, lifestyle changes."
+    },
+    "stroke": {
+      keywords: ["stroke", "brain attack", "facial drooping", "speech problems"],
+      info: "A stroke occurs when blood supply to brain is interrupted, causing brain cell death.",
+      advice: "Control blood pressure, maintain healthy lifestyle, don't smoke, limit alcohol, manage diabetes.",
+      treatment: "Emergency treatment to restore blood flow, rehabilitation therapy, medications to prevent recurrence."
+    },
+    "high_cholesterol": {
+      keywords: ["high cholesterol", "cholesterol", "lipid profile"],
+      info: "High cholesterol is excess cholesterol in blood, increasing risk of heart disease and stroke.",
+      advice: "Eat heart-healthy diet, exercise regularly, maintain healthy weight, avoid trans fats.",
+      treatment: "Dietary changes, regular exercise, cholesterol-lowering medications if needed."
+    },
+
+    // 3. Respiratory Problems
+    "asthma": {
+      keywords: ["asthma", "wheezing", "breathing difficulty", "bronchial asthma"],
+      info: "Asthma is a chronic condition where airways become inflamed and narrow, making breathing difficult.",
+      advice: "Identify and avoid triggers, maintain clean environment, get vaccinated against flu and pneumonia.",
+      treatment: "Inhaled bronchodilators, anti-inflammatory medications, asthma action plan, peak flow monitoring."
+    },
+    "bronchitis": {
+      keywords: ["bronchitis", "productive cough", "chest congestion"],
+      info: "Bronchitis is inflammation of the bronchial tubes, causing cough and mucus production.",
+      advice: "Avoid smoking, stay hydrated, avoid lung irritants, practice good hygiene.",
+      treatment: "Rest, fluids, cough suppressants, bronchodilators if needed, antibiotics only for bacterial infections."
+    },
+    "pneumonia": {
+      keywords: ["pneumonia", "lung infection", "difficulty breathing", "chest pain breathing"],
+      info: "Pneumonia is an infection that inflames air sacs in lungs, which may fill with fluid.",
+      advice: "Get vaccinated, practice good hygiene, avoid smoking, maintain healthy immune system.",
+      treatment: "Antibiotics for bacterial pneumonia, rest, fluids, oxygen therapy if needed, hospitalization for severe cases."
+    },
+    "copd": {
+      keywords: ["copd", "chronic obstructive", "emphysema", "chronic bronchitis"],
+      info: "COPD is a chronic lung disease that blocks airflow and makes breathing difficult.",
+      advice: "Don't smoke, avoid secondhand smoke, get vaccinated, exercise regularly, eat healthy diet.",
+      treatment: "Bronchodilators, inhaled steroids, oxygen therapy, pulmonary rehabilitation, smoking cessation."
+    },
+
+    // 4. Digestive & Stomach Issues
+    "diarrhea": {
+      keywords: ["diarrhea", "loose stools", "watery stool", "frequent bowel movements"],
+      info: "Diarrhea is loose, watery stools occurring more frequently than normal.",
+      advice: "Practice good hygiene, drink safe water, eat well-cooked food, wash hands frequently.",
+      treatment: "Stay hydrated with ORS, BRAT diet, probiotics, avoid dairy temporarily, seek care if severe."
+    },
+    "constipation": {
+      keywords: ["constipation", "hard stools", "difficulty passing stool", "infrequent bowel movements"],
+      info: "Constipation is infrequent bowel movements or difficulty passing stool.",
+      advice: "Eat high-fiber diet, drink plenty of water, exercise regularly, establish regular toilet routine.",
+      treatment: "Increase fiber intake, drink more fluids, exercise, laxatives if needed, stool softeners."
+    },
+    "gerd": {
+      keywords: ["heartburn", "acid reflux", "gerd", "acidity", "burning chest"],
+      info: "GERD is chronic acid reflux where stomach acid flows back into the esophagus.",
+      advice: "Avoid trigger foods, eat smaller meals, don't lie down after eating, maintain healthy weight.",
+      treatment: "Antacids, H2 blockers, proton pump inhibitors, lifestyle modifications, elevate head while sleeping."
+    },
+    "ibs": {
+      keywords: ["ibs", "irritable bowel", "abdominal pain", "bloating gas"],
+      info: "IBS is a chronic disorder affecting the large intestine, causing cramping and changes in bowel habits.",
+      advice: "Identify trigger foods, manage stress, eat regular meals, exercise regularly.",
+      treatment: "Dietary changes, stress management, fiber supplements, antispasmodics, probiotics."
+    },
+
+    // 5. Muscle, Bone & Joint Problems
+    "back_pain": {
+      keywords: ["back pain", "lower back pain", "spine pain", "backache"],
+      info: "Back pain is discomfort in the back, often caused by muscle strain, poor posture, or injury.",
+      advice: "Maintain good posture, exercise regularly, lift properly, sleep on supportive mattress.",
+      treatment: "Rest, ice/heat therapy, pain relievers, physical therapy, gentle stretching exercises."
+    },
+    "arthritis": {
+      keywords: ["arthritis", "joint pain", "stiff joints", "joint swelling"],
+      info: "Arthritis is inflammation of joints causing pain, stiffness, and reduced range of motion.",
+      advice: "Stay active, maintain healthy weight, protect joints, eat anti-inflammatory diet.",
+      treatment: "Pain medications, anti-inflammatory drugs, physical therapy, joint protection techniques."
+    },
+    "osteoporosis": {
+      keywords: ["osteoporosis", "bone density", "weak bones", "brittle bones"],
+      info: "Osteoporosis is a condition where bones become weak and brittle, increasing fracture risk.",
+      advice: "Get adequate calcium and vitamin D, exercise regularly, avoid smoking and excessive alcohol.",
+      treatment: "Calcium and vitamin D supplements, bone-strengthening medications, weight-bearing exercises."
+    },
+
+    // 6. Genetic & Autoimmune Conditions
+    "diabetes_type1": {
+      keywords: ["type 1 diabetes", "juvenile diabetes", "insulin dependent"],
+      info: "Type 1 diabetes is an autoimmune condition where the pancreas produces little or no insulin.",
+      advice: "Monitor blood sugar regularly, follow meal plan, stay active, learn to manage condition.",
+      treatment: "Insulin therapy, blood glucose monitoring, healthy diet, regular exercise, diabetes education."
+    },
+    "lupus": {
+      keywords: ["lupus", "systemic lupus", "autoimmune disease", "butterfly rash"],
+      info: "Lupus is an autoimmune disease where the immune system attacks healthy tissue.",
+      advice: "Avoid sun exposure, manage stress, get adequate rest, follow treatment plan.",
+      treatment: "Anti-inflammatory medications, immunosuppressants, antimalarials, corticosteroids."
+    },
+
+    // 7. Eye & Vision Problems
+    "conjunctivitis": {
+      keywords: ["pink eye", "conjunctivitis", "red eyes", "eye infection"],
+      info: "Conjunctivitis is inflammation of the conjunctiva, causing red, itchy, and watery eyes.",
+      advice: "Practice good hygiene, avoid touching eyes, don't share eye makeup or towels.",
+      treatment: "Antibiotic eye drops for bacterial cases, cool compresses, artificial tears, avoid contact lenses."
+    },
+    "dry_eyes": {
+      keywords: ["dry eyes", "eye dryness", "burning eyes", "gritty eyes"],
+      info: "Dry eyes occur when eyes don't produce enough tears or tears evaporate too quickly.",
+      advice: "Use humidifier, take breaks from screens, protect eyes from wind, stay hydrated.",
+      treatment: "Artificial tears, prescription eye drops, punctal plugs, warm compresses."
+    },
+
+    // 8. Skin Problems
+    "acne": {
+      keywords: ["acne", "pimples", "blackheads", "whiteheads", "skin breakouts"],
+      info: "Acne is a skin condition that occurs when hair follicles become clogged with oil and dead skin cells.",
+      advice: "Wash face gently twice daily, avoid touching face, use non-comedogenic products, manage stress.",
+      treatment: "Topical retinoids, benzoyl peroxide, salicylic acid, antibiotics for severe cases, good skincare routine."
+    },
+    "eczema": {
+      keywords: ["eczema", "atopic dermatitis", "itchy skin", "skin rash"],
+      info: "Eczema is a chronic skin condition causing dry, itchy, and inflamed skin.",
+      advice: "Moisturize regularly, avoid triggers, use gentle soaps, wear soft fabrics, manage stress.",
+      treatment: "Moisturizers, topical corticosteroids, antihistamines, avoid scratching, identify and avoid triggers."
+    }
+  };
+
+  // Check for cancer types first
   const cancerTypes = [
     "lung cancer", "breast cancer", "prostate cancer", "colorectal cancer", 
     "skin cancer", "melanoma", "leukemia", "lymphoma", "pancreatic cancer", 
@@ -25,11 +227,9 @@ export const getMedicalResponse = async (query: string): Promise<string> => {
     "cervical cancer", "kidney cancer", "thyroid cancer"
   ];
   
-  // More explicit cancer type detection
   for (const cancerType of cancerTypes) {
     if (queryLower.includes(cancerType)) {
       console.log(`Detected cancer type: ${cancerType}`);
-      // Store the cancer type for follow-up questions about stages
       sessionStorage.setItem('lastCancerType', cancerType);
       
       return getCancerInformation(cancerType) + 
@@ -41,41 +241,27 @@ export const getMedicalResponse = async (query: string): Promise<string> => {
   if (queryLower.includes("cancer")) {
     return "Cancer is a group of diseases involving abnormal cell growth with the potential to invade or spread to other parts of the body. There are many types of cancer, including lung, breast, prostate, colorectal, skin, melanoma, leukemia, lymphoma, pancreatic, ovarian, brain, liver, stomach, cervical, kidney, and thyroid cancer. Which specific type of cancer would you like to learn about?";
   }
-  
-  // Basic medical knowledge responses
-  if (queryLower.includes("headache")) {
-    return "Headaches can be caused by various factors, including stress, dehydration, lack of sleep, or eye strain. For occasional headaches, rest, hydration, and over-the-counter pain relievers may help. If headaches are severe, persistent, or accompanied by other symptoms, please consult a healthcare professional.";
-  } 
-  else if (queryLower.includes("cold") || queryLower.includes("flu")) {
-    return "Common colds and flu are viral infections. Rest, staying hydrated, and taking over-the-counter medication for symptoms can help. Most people recover within 7-10 days. If symptoms persist or worsen, especially with high fever, chest pain, or difficulty breathing, please seek medical attention.";
-  } 
-  else if (queryLower.includes("diet") || queryLower.includes("nutrition")) {
-    return "A balanced diet typically includes a variety of fruits, vegetables, whole grains, lean proteins, and healthy fats. The specific dietary needs vary based on age, sex, weight, activity level, and health conditions. Consider consulting a registered dietitian for personalized nutrition advice.";
-  } 
-  else if (queryLower.includes("exercise") || queryLower.includes("workout")) {
-    return "Regular physical activity is essential for good health. Adults should aim for at least 150 minutes of moderate-intensity or 75 minutes of vigorous-intensity exercise per week, along with muscle-strengthening activities. Always start new exercise routines gradually and consult a healthcare provider if you have existing health conditions.";
-  } 
-  else if (queryLower.includes("sleep")) {
-    return "Most adults need 7-9 hours of sleep per night. Good sleep hygiene includes maintaining a regular sleep schedule, creating a restful environment, limiting screen time before bed, and avoiding caffeine and large meals close to bedtime. If you consistently have trouble sleeping, consider speaking with a healthcare provider.";
-  } 
-  else if (queryLower.includes("blood pressure")) {
-    return "Normal blood pressure is typically around 120/80 mmHg. High blood pressure (hypertension) is generally considered to be 130/80 mmHg or higher. Low blood pressure might be below 90/60 mmHg. Regular monitoring is important, especially if you have risk factors. Lifestyle changes like reducing sodium, maintaining a healthy weight, and regular exercise can help manage blood pressure.";
+
+  // Check health problems
+  for (const [condition, data] of Object.entries(healthProblems)) {
+    for (const keyword of data.keywords) {
+      if (queryLower.includes(keyword)) {
+        console.log(`Detected health condition: ${condition}`);
+        return `**${keyword.toUpperCase()}**\n\n` +
+          `**What it is:** ${data.info}\n\n` +
+          `**Prevention & Advice:** ${data.advice}\n\n` +
+          `**Treatment & Management:** ${data.treatment}\n\n` +
+          `*Please consult a healthcare professional for proper diagnosis and treatment.*`;
+      }
+    }
   }
-  else if (queryLower.includes("diabetes")) {
-    return "Diabetes is a condition where the body either doesn't produce enough insulin or can't effectively use the insulin it produces. Type 1 diabetes is an autoimmune condition, while Type 2 is often related to lifestyle factors. Symptoms may include increased thirst, frequent urination, unexplained weight loss, and fatigue. Management typically involves monitoring blood sugar levels, medication or insulin therapy, healthy eating, and regular physical activity.";
+
+  // Fallback for general health queries
+  if (queryLower.includes("health") || queryLower.includes("medical") || queryLower.includes("doctor")) {
+    return "I can help you with information about various health conditions including infectious diseases, cardiovascular problems, respiratory issues, digestive problems, musculoskeletal conditions, and more. Please describe your specific health concern or mention a particular condition you'd like to know about.";
   }
-  else if (queryLower.includes("vitamins") || queryLower.includes("supplements")) {
-    return "Vitamins and minerals are essential nutrients that your body needs in small amounts for normal function. While a balanced diet is the best way to get nutrients, supplements may be beneficial for certain people with specific deficiencies or health conditions. Always consult with a healthcare provider before starting any supplement regimen, as some can interact with medications or cause side effects.";
-  }
-  else if (queryLower.includes("heart") || queryLower.includes("cardiovascular")) {
-    return "Heart health is influenced by many factors including diet, exercise, stress levels, and genetics. Recommendations for maintaining cardiovascular health include regular physical activity, a diet low in saturated fats and sodium, maintaining a healthy weight, not smoking, and controlling conditions like high blood pressure and diabetes. Regular check-ups can help detect early signs of heart disease.";
-  }
-  else if (queryLower.includes("cancer")) {
-    return "Cancer is a group of diseases involving abnormal cell growth with the potential to invade or spread to other parts of the body. There are many types of cancer, including lung, breast, prostate, colorectal, skin, and blood cancers. Would you like information on a specific type of cancer? If so, please specify which type.";
-  }
-  else {
-    return "Thank you for your question. For specific medical concerns, it's best to consult with a healthcare professional. I can provide general information on common health topics, preventive care, and wellness practices. Please feel free to ask about these areas, and I'll do my best to assist you.";
-  }
+
+  return "Thank you for your question. For specific medical concerns, it's best to consult with a healthcare professional. I can provide general information on common health topics, preventive care, and wellness practices. Please feel free to ask about specific health conditions, and I'll do my best to assist you.";
 };
 
 /**
@@ -181,13 +367,9 @@ const getCancerStageInformation = (cancerType: string, stage: string): string =>
       "3": "Stage 3 colorectal cancer has spread to nearby lymph nodes, but not to distant parts of the body. The 5-year survival rate is around 40-70%. Treatment typically involves surgery to remove the tumor and affected lymph nodes, followed by chemotherapy. Radiation therapy might also be used, especially for rectal cancer.",
       
       "4": "Stage 4 colorectal cancer has spread to distant parts of the body, such as the liver, lungs, or peritoneum. The 5-year survival rate decreases to about 10-15%. Treatment focuses on extending life and relieving symptoms, usually through a combination of surgery, chemotherapy, targeted therapy, and immunotherapy. In some cases of limited metastasis, surgery or other local treatments of metastases can be considered with curative intent."
-    },
-    
-    // Add more cancer types and their stages here in a similar format
-    
+    }
   };
   
-  // For other cancer types not explicitly detailed above
   if (!stageMap[cancerType] || !stageMap[cancerType][stage]) {
     return `Information about Stage ${stage} of ${cancerType} is currently not available in detail. Generally, cancer staging follows this pattern:\n\n` +
       "Stage 1: Cancer is relatively small and contained within the organ where it started.\n\n" +

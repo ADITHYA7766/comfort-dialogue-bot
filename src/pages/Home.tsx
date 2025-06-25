@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Users, FileText } from "lucide-react";
+import { Users, FileText, Heart } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { AuthNav } from "@/components/AuthNav";
 
@@ -60,24 +60,7 @@ const Home = () => {
           <Card className="border shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                {/* Caduceus Symbol */}
-                <svg 
-                  width="40" 
-                  height="40" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  className="text-primary"
-                >
-                  <line x1="12" y1="2" x2="12" y2="22" />
-                  <path d="M8 6c-2 0-4-1-4-3s2-3 4-3 2 1 2 3-2 3-2 3" />
-                  <path d="M16 6c2 0 4-1 4-3s-2-3-4-3-2 1-2 3 2 3 2 3" />
-                  <path d="M12 6c-2 0-3 1-3 3s1 3 3 3 3-1 3-3-1-3-3-3" />
-                  <path d="M12 12c2 0 3 1 3 3s-1 3-3 3-3-1-3-3 1-3 3-3" />
-                </svg>
+                <Heart className="h-10 w-10 text-primary" />
               </div>
               <CardTitle className="text-2xl">HealthAI</CardTitle>
               <CardDescription>Comprehensive health AI assistant</CardDescription>
