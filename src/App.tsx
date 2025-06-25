@@ -6,8 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import MindfulAI from "./pages/MindfulAI";
-import MedKitAI from "./pages/MedKitAI";
+import HealthAI from "./pages/HealthAI";
 import NotFound from "./pages/NotFound";
 import Docs from "./pages/Docs";
 import Login from "./pages/Login";
@@ -31,8 +30,7 @@ const App: React.FC = () => {
               <BrowserRouter>
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/mindfulai" element={<MindfulAI />} />
-                  <Route path="/medkitai" element={<MedKitAI />} />
+                  <Route path="/healthai" element={<HealthAI />} />
                   <Route path="/docs" element={<Docs />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />

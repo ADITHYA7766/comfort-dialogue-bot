@@ -1,7 +1,8 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Heart, Users, FileText } from "lucide-react";
+import { Users, FileText } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { AuthNav } from "@/components/AuthNav";
 
@@ -55,62 +56,43 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <Card className="border shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                {/* Caduceus Symbol */}
                 <svg 
+                  width="40" 
+                  height="40" 
                   viewBox="0 0 24 24" 
                   fill="none" 
                   stroke="currentColor" 
                   strokeWidth="2" 
                   strokeLinecap="round" 
                   strokeLinejoin="round" 
-                  className="h-10 w-10 text-primary"
+                  className="text-primary"
                 >
-                  <path d="M8 7H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3" />
-                  <path d="M13 7V3a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v4" />
-                  <circle cx="9" cy="13" r="1" />
-                  <circle cx="15" cy="13" r="1" />
-                  <path d="M10 17h4" />
+                  <line x1="12" y1="2" x2="12" y2="22" />
+                  <path d="M8 6c-2 0-4-1-4-3s2-3 4-3 2 1 2 3-2 3-2 3" />
+                  <path d="M16 6c2 0 4-1 4-3s-2-3-4-3-2 1-2 3 2 3 2 3" />
+                  <path d="M12 6c-2 0-3 1-3 3s1 3 3 3 3-1 3-3-1-3-3-3" />
+                  <path d="M12 12c2 0 3 1 3 3s-1 3-3 3-3-1-3-3 1-3 3-3" />
                 </svg>
               </div>
-              <CardTitle className="text-2xl">MedKitAI</CardTitle>
-              <CardDescription>Medical information assistant</CardDescription>
+              <CardTitle className="text-2xl">HealthAI</CardTitle>
+              <CardDescription>Comprehensive health AI assistant</CardDescription>
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-muted-foreground">
-                Get reliable information about common health concerns, medications, 
-                and general wellness advice from our medical information assistant.
+                Get comprehensive support for both medical information and mental health guidance. 
+                Our unified AI assistant provides reliable health information, emotional support, 
+                and wellness advice all in one place.
               </p>
             </CardContent>
             <CardFooter className="flex justify-center">
               <Button asChild size="lg">
-                <Link to="/medkitai">
-                  Access MedKitAI
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
-
-          <Card className="border shadow-sm hover:shadow-md transition-shadow">
-            <CardHeader className="text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="h-10 w-10 text-primary" />
-              </div>
-              <CardTitle className="text-2xl">MindfulAI</CardTitle>
-              <CardDescription>Mental health support companion</CardDescription>
-            </CardHeader>
-            <CardContent className="text-center">
-              <p className="text-muted-foreground">
-                A supportive AI companion for mental health assistance and emotional wellbeing.
-                Express your thoughts and receive compassionate guidance.
-              </p>
-            </CardContent>
-            <CardFooter className="flex justify-center">
-              <Button asChild size="lg">
-                <Link to="/mindfulai">
-                  Access MindfulAI
+                <Link to="/healthai">
+                  Access HealthAI
                 </Link>
               </Button>
             </CardFooter>
