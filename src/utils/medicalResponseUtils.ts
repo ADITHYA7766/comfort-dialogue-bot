@@ -1,4 +1,3 @@
-
 /**
  * Get a response from the HealthAI based on the user's query
  */
@@ -910,11 +909,7 @@ export const getMedicalResponse = async (query: string): Promise<string> => {
     for (const keyword of data.keywords) {
       if (queryLower.includes(keyword)) {
         console.log(`Detected health condition: ${condition}`);
-        return `**${keyword.toUpperCase()}**\n\n` +
-          `**What it is:** ${data.info}\n\n` +
-          `**Prevention & Advice:** ${data.advice}\n\n` +
-          `**Treatment & Management:** ${data.treatment}\n\n` +
-          `*Please consult a healthcare professional for proper diagnosis and treatment.*`;
+        return formatMedicalResponse(data);
       }
     }
   }
@@ -1043,4 +1038,17 @@ const getCancerStageInformation = (cancerType: string, stage: string): string =>
   }
   
   return stageMap[cancerType][stage];
+};
+
+const formatMedicalResponse = (condition: {keywords: string[], info: string, advice: string, treatment: string}): string => {
+  return `<div class="text-xs font-bold text-gray-600 mb-4">*Please consult a healthcare professional for proper diagnosis and treatment.*</div>
+
+  <div class="font-bold text-lg mb-2">What it is:</div>
+  ${condition.info}
+
+  <div class="font-bold text-lg mb-2 mt-4">Prevention & Advice:</div>
+  ${condition.advice}
+
+  <div class="font-bold text-lg mb-2 mt-4">Treatment & Management:</div>
+  ${condition.treatment}`;
 };

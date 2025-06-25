@@ -106,8 +106,13 @@ const HealthChatInterface = () => {
                     ? "chat-bubble-user"
                     : "chat-bubble-ai"
                 }
+                dangerouslySetInnerHTML={
+                  message.sender === "ai" 
+                    ? { __html: message.content }
+                    : undefined
+                }
               >
-                {message.content}
+                {message.sender === "user" ? message.content : null}
               </div>
             </div>
           ))}
