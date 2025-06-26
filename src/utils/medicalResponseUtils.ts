@@ -27,6 +27,7 @@ const medicalConditions = {
     advice: "Maintain a healthy weight, exercise regularly, use proper lifting techniques, maintain good posture, stretch regularly.",
     treatment: "Pain relievers, anti-inflammatory medications, physical therapy, occupational therapy, joint injections, surgery."
   },
+
   mental_health_disorders: {
     keywords: ["depression", "anxiety", "bipolar disorder", "schizophrenia", "ocd", "ptsd", "eating disorders", "adhd", "autism", "borderline personality disorder", "panic disorder", "social anxiety disorder"],
     info: "Mental health disorders affect mood, thinking, and behavior, impacting daily life and relationships.",
@@ -124,6 +125,27 @@ const medicalConditions = {
     advice: "I understand how uncomfortable and distressing vomiting can be. Stay hydrated with small sips of clear fluids, rest in a comfortable position, avoid solid foods initially, and try ginger or peppermint for nausea relief.",
     treatment: "Start with clear fluids (water, broth, electrolyte solutions) in small amounts every 15 minutes. Gradually introduce bland foods like crackers or toast. Seek immediate medical attention if vomiting persists over 24 hours, shows blood, or is accompanied by severe dehydration, high fever, or severe abdominal pain."
   },
+
+  malaria_specific: {
+    keywords: ["malaria"],
+    info: "Malaria is a life-threatening disease caused by parasites transmitted through the bites of infected female Anopheles mosquitoes. It's most common in tropical and subtropical regions.",
+    advice: "Prevention is key - use insect repellent, sleep under insecticide-treated bed nets, wear long-sleeved clothing, and take antimalarial medication when traveling to endemic areas. Seek immediate medical attention if you develop fever, chills, or flu-like symptoms after visiting malaria-endemic areas.",
+    treatment: "Malaria requires immediate medical treatment with antimalarial medications. The specific treatment depends on the type of malaria parasite, severity of symptoms, and local resistance patterns. Early diagnosis and treatment are crucial to prevent complications."
+  },
+
+  dengue_specific: {
+    keywords: ["dengue"],
+    info: "Dengue is a viral infection transmitted by Aedes mosquitoes, common in tropical and subtropical climates. It can range from mild fever to severe dengue hemorrhagic fever.",
+    advice: "Prevent mosquito bites by eliminating standing water around your home, using mosquito repellent, wearing long-sleeved clothes, and using bed nets. Seek medical attention immediately if you develop high fever, severe headache, eye pain, muscle aches, or skin rash.",
+    treatment: "There's no specific antiviral treatment for dengue. Management focuses on maintaining proper fluid balance and monitoring for complications. Avoid aspirin and NSAIDs as they can increase bleeding risk. Seek immediate medical care for severe symptoms like persistent vomiting, severe abdominal pain, or difficulty breathing."
+  },
+
+  knee_pain_specific: {
+    keywords: ["knee pain"],
+    info: "Knee pain can result from injuries, arthritis, mechanical problems, or underlying medical conditions. It's one of the most common musculoskeletal complaints affecting people of all ages.",
+    advice: "Rest the affected knee, apply ice for 15-20 minutes several times daily, compress with an elastic bandage, and elevate when possible (R.I.C.E. method). Maintain a healthy weight to reduce stress on knee joints, and strengthen surrounding muscles through appropriate exercises.",
+    treatment: "Treatment depends on the cause but may include rest, ice, compression, elevation, over-the-counter pain relievers, physical therapy, and in some cases, corticosteroid injections or surgery. Seek medical attention if pain is severe, you can't bear weight, or if there's significant swelling or instability."
+  }
 };
 
 const getCancerStageInfo = (cancerType: string, cancerStage: string): string => {
