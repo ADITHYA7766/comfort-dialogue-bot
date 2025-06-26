@@ -4,7 +4,7 @@
 
 const medicalConditions = {
   infectious_diseases: {
-    keywords: ["flu", "influenza", "common cold", "covid", "coronavirus", "strep throat", "bronchitis", "pneumonia", "sinusitis", "urinary tract infection", "uti", "skin infection", "cellulitis", "conjunctivitis", "pinkeye", "gastroenteritis", "food poisoning"],
+    keywords: ["flu", "influenza", "common cold", "covid", "coronavirus", "strep throat", "bronchitis", "pneumonia", "sinusitis", "urinary tract infection", "uti", "skin infection", "cellulitis", "conjunctivitis", "pinkeye", "gastroenteritis", "food poisoning", "malaria", "dengue"],
     info: "Infectious diseases are disorders caused by organisms — such as bacteria, viruses, fungi or parasites.",
     advice: "Wash your hands, get vaccinated, stay home if sick, cover coughs and sneezes, avoid sharing personal items.",
     treatment: "Rest, fluids, over-the-counter pain relievers, antibiotics for bacterial infections, antiviral medications for viral infections."
@@ -22,7 +22,7 @@ const medicalConditions = {
     treatment: "Medications to lower blood pressure and cholesterol, blood thinners, lifestyle changes, angioplasty, bypass surgery."
   },
   musculoskeletal_problems: {
-    keywords: ["arthritis", "osteoarthritis", "rheumatoid arthritis", "back pain", "sciatica", "neck pain", "carpal tunnel syndrome", "tendinitis", "bursitis", "fibromyalgia", "osteoporosis", "gout"],
+    keywords: ["arthritis", "osteoarthritis", "rheumatoid arthritis", "back pain", "sciatica", "neck pain", "carpal tunnel syndrome", "tendinitis", "bursitis", "fibromyalgia", "osteoporosis", "gout", "knee pain"],
     info: "Musculoskeletal problems affect the bones, joints, muscles, and connective tissues, causing pain and limiting movement.",
     advice: "Maintain a healthy weight, exercise regularly, use proper lifting techniques, maintain good posture, stretch regularly.",
     treatment: "Pain relievers, anti-inflammatory medications, physical therapy, occupational therapy, joint injections, surgery."
@@ -248,6 +248,25 @@ export const getMedicalResponse = async (userInput: string): Promise<string> => 
     if (detectedCancer && detectedStage) {
       return getCancerStageInfo(detectedCancer, detectedStage);
     }
+  }
+  
+  // Check for specific conditions first
+  if (queryLower.includes("malaria")) {
+    const condition = medicalConditions.malaria_specific;
+    console.log("Detected health condition: malaria");
+    return formatMedicalResponse(condition, "malaria");
+  }
+  
+  if (queryLower.includes("dengue")) {
+    const condition = medicalConditions.dengue_specific;
+    console.log("Detected health condition: dengue");
+    return formatMedicalResponse(condition, "dengue");
+  }
+  
+  if (queryLower.includes("knee pain")) {
+    const condition = medicalConditions.knee_pain_specific;
+    console.log("Detected health condition: knee pain");
+    return formatMedicalResponse(condition, "knee pain");
   }
   
   // Check for vomiting first (specific sympathy response)
